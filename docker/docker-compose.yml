@@ -43,7 +43,3 @@ services:
       - ./mosquitto/config:/mosquitto/config
       - ./mosquitto/data:/mosquitto/data
     restart: unless-stopped
-
-volumes:
-  team1-influxdb-storage:
-  team1-grafana-storage:
