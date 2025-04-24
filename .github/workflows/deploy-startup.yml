@@ -1,4 +1,4 @@
-name: Deploy Nginx Config
+name: Deploy Startup Config
 
 on:
   push:
