@@ -10,6 +10,13 @@ on:
         required: false
         type: string
         default: Dockerfile
+      use-github-token:
+        required: false
+        type: boolean
+        default: false
+    secrets:
+      GITHUB_TOKEN:
+        required: true
 
 jobs:
   build-and-push:
@@ -17,7 +24,7 @@ jobs:
 
     permissions:
       contents: read
-      packages: write  # GHCR 푸시를 위해 필요
+      packages: write
 
     steps:
       - name: Checkout source
@@ -30,7 +37,16 @@ jobs:
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}:latest
           IMAGE_ID=$(echo "$IMAGE_ID" | tr '[:upper:]' '[:lower:]')
-          docker build -t $IMAGE_ID -f ${{ inputs.dockerfile-path }} .
+          
+          if [ "${{ inputs.use-github-token }}" = "true" ]; then
+            docker build \
+              --build-arg GITHUB_ACTOR=${{ github.actor }} \
+              --build-arg GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+              -t $IMAGE_ID -f ${{ inputs.dockerfile-path }} .
+          else
+            docker build \
+              -t $IMAGE_ID -f ${{ inputs.dockerfile-path }} .
+          fi
 
       - name: Push Docker image
         run: |
