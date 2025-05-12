@@ -1,0 +1,9 @@
+services:
+  auth-service:
+    image: ghcr.io/nhnacademy-aiot2-lucky7/user-service:latest
+    ports:
+      - "10235:10235"
+    env_file:
+      - .env.auth
+    volumes:
+      - ./logs:/app/logs

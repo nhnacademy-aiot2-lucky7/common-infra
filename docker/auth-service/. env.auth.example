@@ -1,0 +1,15 @@
+SERVER_IP_ADDRESS=
+
+# AES 암호화 키
+AES_SECRET=
+
+# Redis 설정
+REDIS_HOST=
+REDIS_PORT=
+REDIS_PASSWORD=
+
+# JWT 설정
+JWT_SECRET=
+
+# 서비스 프로필 설정
+SPRING_PROFILES_ACTIVE=release
