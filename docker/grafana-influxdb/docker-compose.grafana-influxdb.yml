@@ -1,0 +1,47 @@
+services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: team1_influxdb
+    ports:
+      - "10236:8086"
+    volumes:
+      - team1-influxdb-storage:/var/lib/influxdb2
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: ${DOCKER_INFLUXDB_INIT_USERNAME}
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${DOCKER_INFLUXDB_INIT_PASSWORD}
+      DOCKER_INFLUXDB_INIT_ORG: ${DOCKER_INFLUXDB_INIT_ORG}
+      DOCKER_INFLUXDB_INIT_BUCKET: ${DOCKER_INFLUXDB_INIT_BUCKET}
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:9.4.3
+    container_name: team1_grafana
+    ports:
+      - "10237:3000"
+    environment:
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
+    depends_on:
+      influxdb:
+        condition: service_healthy
+    volumes:
+      - team1-grafana-storage:/var/lib/grafana
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    networks:
+      - team1-net
+
+networks:
+  team1-net:
+    external: true
+
+volumes:
+  team1-grafana-storage:
+  team1-influxdb-storage:
