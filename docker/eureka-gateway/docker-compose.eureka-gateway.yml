@@ -1,9 +1,11 @@
 services:
   auth-service:
-    image: ghcr.io/nhnacademy-aiot2-lucky7/eureka-gateway:latest
+    image: ghcr.io/nhnacademy-aiot2-lucky7/eureka-gateway-service:latest
     container_name: team1-eureka-gateway
     ports:
       - "10232:10232"
+    env_file:
+      - .env.eureka-gateway
     volumes:
       - ./logs:/logs
     networks:

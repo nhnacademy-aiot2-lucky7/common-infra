@@ -4,4 +4,5 @@ docker/mosquitto/.env.mosquitto
 docker/user-service/.env.user
 docker/eureka/.env.eureka
 docker/eureka-gateway/.env.eureka-gateway
+docker/threshold-calculator-service/.env.threshold-calculator-service
 docker/**/logs/**

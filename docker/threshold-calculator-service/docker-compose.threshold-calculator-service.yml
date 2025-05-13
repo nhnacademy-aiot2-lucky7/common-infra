@@ -1,0 +1,16 @@
+services:
+  auth-service:
+    image: ghcr.io/nhnacademy-aiot2-lucky7/threshold-calculator-service:latest
+    container_name: team1-threshold-calculator-service
+    ports:
+      - "10246:10246"
+    env_file:
+      - .env.threshold-calculator-service
+    volumes:
+      - ./logs:/logs
+    networks:
+      - team1-net
+
+networks:
+  team1-net:
+    external: true
