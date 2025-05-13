@@ -3,7 +3,7 @@ services:
     image: eclipse-mosquitto:2.0
     container_name: team1_broker
     ports:
-      - "${MOSQUITTO_PORT}:1883"
+      - "10240:1883"
     volumes:
       - ./mosquitto/config:/mosquitto/config
       - ./mosquitto/data:/mosquitto/data
@@ -13,3 +13,4 @@ services:
 
 networks:
   team1-net:
+    external: true

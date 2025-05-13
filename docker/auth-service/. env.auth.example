@@ -13,3 +13,4 @@ JWT_SECRET=
 
 # 서비스 프로필 설정
 SPRING_PROFILES_ACTIVE=release
+#EUREKA_URL=https://admin:1234@eureka.luckyseven.live/eureka

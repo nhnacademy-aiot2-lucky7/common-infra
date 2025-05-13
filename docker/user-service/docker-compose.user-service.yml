@@ -1,9 +1,16 @@
 services:
-  auth-service:
+  user-service:
     image: ghcr.io/nhnacademy-aiot2-lucky7/user-service:latest
+    container_name: team1-user-service
     ports:
       - "10235:10235"
     env_file:
-      - .env.auth
+      - .env.user
     volumes:
-      - ./logs:/app/logs
+      - ./logs:/logs
+    networks:
+      - team1-net
+
+networks:
+  team1-net:
+    external: true
