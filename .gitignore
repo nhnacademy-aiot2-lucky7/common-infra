@@ -3,3 +3,5 @@ docker/grafana-influxdb/.env.grafana-influxdb
 docker/influxdb/.env.influxdb
 docker/mosquitto/.env.mosquitto
 docker/user-service/.env.user
+docker/user-service/.env.eureka
+docker/**/logs/**
