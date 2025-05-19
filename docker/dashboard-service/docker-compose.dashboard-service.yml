@@ -1,0 +1,16 @@
+services:
+  dashboard-service:
+    image: ghcr.io/nhnacademy-aiot2-lucky7/dashboard-service:latest
+    container_name: team1-dashboard-service
+    ports:
+      - "10243:10243"
+    env_file:
+      - .env.dashboard
+    volumes:
+      - ./logs:/logs
+    networks:
+      - team1-net
+
+networks:
+  team1-net:
+    external: true
