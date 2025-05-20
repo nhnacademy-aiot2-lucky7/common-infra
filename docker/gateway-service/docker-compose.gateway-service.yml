@@ -1,5 +1,5 @@
 services:
-  auth-service:
+  gateway-service:
     image: ghcr.io/nhnacademy-aiot2-lucky7/gateway-service:latest
     container_name: team1-gateway-service
     ports:

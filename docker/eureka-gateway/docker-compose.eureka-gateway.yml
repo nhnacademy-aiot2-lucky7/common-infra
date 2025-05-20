@@ -1,5 +1,5 @@
 services:
-  auth-service:
+  eureka-gateway-service:
     image: ghcr.io/nhnacademy-aiot2-lucky7/eureka-gateway-service:latest
     container_name: team1-eureka-gateway
     ports:
