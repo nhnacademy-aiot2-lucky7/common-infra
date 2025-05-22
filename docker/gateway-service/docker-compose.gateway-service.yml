@@ -6,6 +6,8 @@ services:
       - "10241:10241"
     env_file:
       - .env.gateway-service
+    environment:
+      JAVA_TOOL_OPTIONS: "--add-opens=java.base/java.net=ALL-UNNAMED"
     volumes:
       - ./logs:/logs
     networks:
