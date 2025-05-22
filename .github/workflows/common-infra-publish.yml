@@ -12,12 +12,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Copy only docker folder to remote server
+      - name: Copy entire docker folder to remote server
         uses: appleboy/scp-action@v0.1.1
         with:
           host: ${{ secrets.SSH_IP }}
-          port: ${{secrets.SSH_PORT}}
+          port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_ID }}
           key: ${{ secrets.SSH_KEY }}
           source: "docker/*"
-          target: "~/team1-docker"  # 예: ~/common-infra/docker에 들어감
+          target: "~/team1-docker"
