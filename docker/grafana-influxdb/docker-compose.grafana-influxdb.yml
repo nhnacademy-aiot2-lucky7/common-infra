@@ -19,8 +19,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      - team1-net
 
   grafana:
     image: grafana/grafana:9.4.3
@@ -42,12 +40,6 @@ services:
       resources:
         limits:
           memory: 256M
-    networks:
-      - team1-net
-
-networks:
-  team1-net:
-    external: true
 
 volumes:
   team1-grafana-storage:
