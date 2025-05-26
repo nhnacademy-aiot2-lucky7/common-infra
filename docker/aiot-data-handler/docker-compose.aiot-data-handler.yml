@@ -1,11 +1,11 @@
 services:
-  eureka-gateway-service:
-    image: ghcr.io/nhnacademy-aiot2-lucky7/eureka-gateway-service:latest
-    container_name: team1-eureka-gateway
+  aiot-data-handler:
+    image: ghcr.io/nhnacademy-aiot2-lucky7/spring-iot-data-handler:latest
+    container_name: team1-aiot-data-handler
     ports:
-      - "10232:10232"
+      - "10242:10242"
     env_file:
-      - .env.eureka-gateway
+      - .env.aiot-data-handler
     environment:
       JAVA_TOOL_OPTIONS: "--add-opens=java.base/java.net=ALL-UNNAMED"
     volumes:

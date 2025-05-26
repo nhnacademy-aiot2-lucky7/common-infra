@@ -1,7 +1,7 @@
 services:
   rule-engine-service:
     image: ghcr.io/nhnacademy-aiot2-lucky7/rule-engine-service:latest
-    container_name: team1-auth-service
+    container_name: team1-rule-engine-service
     ports:
       - "10245:10245"
     env_file:
