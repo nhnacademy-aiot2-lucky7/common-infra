@@ -1,0 +1,16 @@
+services:
+  correlation-analysis-service:
+    image: ghcr.io/nhnacademy-aiot2-lucky7/correlation-analysis-service:latest
+    container_name: team1-correlation-analysis-service
+    ports:
+      - "10248:10248"
+    env_file:
+      - .env.correlation-analysis-service
+    volumes:
+      - ./logs:/logs
+    networks:
+      - team1-net
+
+networks:
+  team1-net:
+    external: true
