@@ -1,5 +1,5 @@
 services:
-  auth-service:
+  threshold-calculator-service:
     image: ghcr.io/nhnacademy-aiot2-lucky7/threshold-calculator-service:latest
     container_name: team1-threshold-calculator-service
     ports:
