@@ -1,0 +1,16 @@
+services:
+  sensor-health-ai:
+    image: ghcr.io/nhnacademy-aiot2-lucky7/sensor-health-ai:latest
+    container_name: team1-sensor-health-ai
+    ports:
+      - "10250:10250"
+    env_file:
+      - .env.sensor-health-ai
+    volumes:
+      - ./logs:/logs
+    networks:
+      - team1-net
+
+networks:
+  team1-net:
+    external: true
