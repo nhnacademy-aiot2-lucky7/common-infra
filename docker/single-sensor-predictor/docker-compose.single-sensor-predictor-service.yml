@@ -1,0 +1,16 @@
+services:
+  single-sensor-predictor-service:
+    image: ghcr.io/nhnacademy-aiot2-lucky7/single-sensor-predictor-service:latest
+    container_name: team1-single-sensor-predictor-service
+    ports:
+      - "10249:10249"
+    env_file:
+      - .env.single-sensor-predictor-service
+    volumes:
+      - ./logs:/logs
+    networks:
+      - team1-net
+
+networks:
+  team1-net:
+    external: true
