@@ -1,5 +1,5 @@
 services:
-  aiot-data-handler:
+  aiot-analysis-handler:
     image: ghcr.io/nhnacademy-aiot2-lucky7/ai-analysis-result-service:latest
     container_name: team1-ai-analysis-result-service
     ports:
