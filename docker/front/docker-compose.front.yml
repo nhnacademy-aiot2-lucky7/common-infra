@@ -1,0 +1,16 @@
+services:
+  front:
+    image: ghcr.io/nhnacademy-aiot2-lucky7/front:latest
+    container_name: team1-front
+    ports:
+      - "10231:10231"
+    env_file:
+      - .env.front
+    volumes:
+      - ./logs:/logs
+    networks:
+      - team1-net
+
+networks:
+  team1-net:
+    external: true
