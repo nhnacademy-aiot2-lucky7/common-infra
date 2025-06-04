@@ -1,0 +1,168 @@
+# 프론트 톰캣 업스트림 설정
+upstream aiot2-team1-front {
+    server 127.0.0.1:10231;
+    keepalive 32;
+}
+
+upstream aiot2-team1-eureka {
+    server 127.0.0.1:10233;
+    keepalive 32;
+}
+
+upstream aiot2-team1-influxdb {
+    server 127.0.0.1:10236;
+    keepalive 32;
+}
+
+upstream aiot2-team1-grafana {
+    server 127.0.0.1:10237;
+    keepalive 32;
+}
+
+# HTTP 서버 설정
+server {
+    # 80포트로 실행합니다.
+    listen 80;
+    server_name luckyseven.live www.luckyseven.live;
+
+    # nginx access log 설정
+    access_log /home/aiot2/aiot2-team1/nginx/logs/front-access.log;
+    # nginx error log 설정
+    error_log /home/aiot2/aiot2-team1/nginx/logs/front-error.log;
+
+    location / {
+            # 요청을 http://aiot2-team1-front 로 프록시 전달합니다.
+            proxy_pass http://aiot2-team1-front;
+
+            # 원래 요청의 호스트 헤더를 전달합니다 (ex: example.com).
+            proxy_set_header Host $host;
+
+            # 클라이언트의 실제 IP 주소를 전달합니다.
+            proxy_set_header X-Real-IP $remote_addr;
+
+            # X-Forwarded-For 헤더에 클라이언트의 IP와 프록시 체인을 추가하여 전달합니다.
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+            # 원래 요청의 프로토콜(http 또는 https)을 전달합니다.
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            # HTTP/1.1을 사용하여 백엔드 서버와 통신합니다 (웹소켓 등 최신 기능을 위해 필요할 수 있음).
+            proxy_http_version 1.1;
+
+            # "Connection" 헤더를 비워서 프록시가 Keep-Alive를 적절히 처리하게 합니다.
+            proxy_set_header Connection "";
+        }
+}
+
+server {
+    # 80포트로 실행합니다.
+    listen 80;
+    server_name eureka.luckyseven.live;
+
+    # nginx access log 설정
+    access_log /home/aiot2/aiot2-team1/nginx/logs/eureka_access.log;
+    # nginx error log 설정
+    error_log /home/aiot2/aiot2-team1/nginx/logs/eureka_error.log;
+
+    location / {
+            # 요청을 http://aiot2-team1-front 로 프록시 전달합니다.
+            proxy_pass http://aiot2-team1-eureka;
+
+            # 원래 요청의 호스트 헤더를 전달합니다 (ex: example.com).
+            proxy_set_header Host $host;
+
+            # 클라이언트의 실제 IP 주소를 전달합니다.
+            proxy_set_header X-Real-IP $remote_addr;
+
+            # X-Forwarded-For 헤더에 클라이언트의 IP와 프록시 체인을 추가하여 전달합니다.
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+            # 원래 요청의 프로토콜(http 또는 https)을 전달합니다.
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            # HTTP/1.1을 사용하여 백엔드 서버와 통신합니다 (웹소켓 등 최신 기능을 위해 필요할 수 있음).
+            proxy_http_version 1.1;
+
+            # "Connection" 헤더를 비워서 프록시가 Keep-Alive를 적절히 처리하게 합니다.
+            proxy_set_header Connection "";
+        }
+}
+
+server {
+    # 80포트로 실행합니다.
+    listen 80;
+    server_name influx.luckyseven.live;
+
+    # nginx access log 설정
+    access_log /home/aiot2/aiot2-team1/nginx/logs/influx_access.log;
+    # nginx error log 설정
+    error_log /home/aiot2/aiot2-team1/nginx/logs/influx_error.log;
+
+    location / {
+            # 요청을 http://aiot2-team1-front 로 프록시 전달합니다.
+            proxy_pass http://aiot2-team1-influxdb;
+
+            # 원래 요청의 호스트 헤더를 전달합니다 (ex: example.com).
+            proxy_set_header Host $host;
+
+            # 클라이언트의 실제 IP 주소를 전달합니다.
+            proxy_set_header X-Real-IP $remote_addr;
+
+            # X-Forwarded-For 헤더에 클라이언트의 IP와 프록시 체인을 추가하여 전달합니다.
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+            # 원래 요청의 프로토콜(http 또는 https)을 전달합니다.
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            # HTTP/1.1을 사용하여 백엔드 서버와 통신합니다 (웹소켓 등 최신 기능을 위해 필요할 수 있음).
+            proxy_http_version 1.1;
+
+            # "Connection" 헤더를 비워서 프록시가 Keep-Alive를 적절히 처리하게 합니다.
+            proxy_set_header Connection "";
+
+
+	    proxy_buffering off;
+            proxy_request_buffering off;
+            proxy_connect_timeout 5s;
+            proxy_send_timeout 10s;
+            proxy_read_timeout 10s;
+            send_timeout 10s;
+
+            gzip off;
+            chunked_transfer_encoding off;
+        }
+}
+
+server {
+    # 80포트로 실행합니다.
+    listen 80;
+    server_name grafana.luckyseven.live;
+
+    # nginx access log 설정
+    access_log /home/aiot2/aiot2-team1/nginx/logs/grafana_access.log;
+    # nginx error log 설정
+    error_log /home/aiot2/aiot2-team1/nginx/logs/grafana_error.log;
+
+    location / {
+            # 요청을 http://aiot2-team1-front 로 프록시 전달합니다.
+            proxy_pass http://aiot2-team1-grafana;
+
+            # 원래 요청의 호스트 헤더를 전달합니다 (ex: example.com).
+            proxy_set_header Host $host;
+
+            # 클라이언트의 실제 IP 주소를 전달합니다.
+            proxy_set_header X-Real-IP $remote_addr;
+
+            # X-Forwarded-For 헤더에 클라이언트의 IP와 프록시 체인을 추가하여 전달합니다.
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+            # 원래 요청의 프로토콜(http 또는 https)을 전달합니다.
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            # HTTP/1.1을 사용하여 백엔드 서버와 통신합니다 (웹소켓 등 최신 기능을 위해 필요할 수 있음).
+            proxy_http_version 1.1;
+
+            # "Connection" 헤더를 비워서 프록시가 Keep-Alive를 적절히 처리하게 합니다.
+            proxy_set_header Connection "";
+        }
+}
